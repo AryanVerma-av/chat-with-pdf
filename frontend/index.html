@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF RAG Assistant</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1 class="app-title">PDF RAG ASSISTANT</h1>
+      <p class="app-subtitle">Grounded question answering from your PDF document</p>
+    </header>
+
+    <!-- Error Alert Box -->
+    <div id="errorBanner" class="alert-box alert-error hidden" role="alert">
+      <span id="errorMessage" class="alert-text"></span>
+      <button id="dismissErrorBtn" class="btn-text" type="button" aria-label="Dismiss error">Dismiss</button>
+    </div>
+
+    <!-- Upload Section -->
+    <section class="panel-section upload-section" aria-labelledby="uploadHeading">
+      <h2 id="uploadHeading" class="section-title">Upload your PDF</h2>
+      
+      <div id="dropZone" class="drop-zone">
+        <input type="file" id="pdfFileInput" accept=".pdf,application/pdf" class="file-input-hidden">
+        <label for="pdfFileInput" class="btn btn-secondary" id="selectPdfLabel">Select PDF</label>
+        <span class="drop-zone-hint">or drag and drop file here</span>
+      </div>
+
+      <!-- Uploading / Processing State -->
+      <div id="uploadProgress" class="status-indicator hidden">
+        <div class="spinner"></div>
+        <span id="uploadStatusText" class="status-text">Processing PDF...</span>
+      </div>
+
+      <!-- Uploaded Document Info -->
+      <div id="uploadedInfo" class="uploaded-card hidden">
+        <div class="uploaded-details">
+          <span class="label">Uploaded:</span>
+          <span id="uploadedFilename" class="filename">document.pdf</span>
+          <div id="uploadedMetadata" class="metadata-text">12 pages | 36 chunks</div>
+        </div>
+        <button id="clearDocBtn" class="btn btn-sm btn-outline" type="button">Change PDF</button>
+      </div>
+    </section>
+
+    <!-- Question Section -->
+    <section class="panel-section question-section" aria-labelledby="questionHeading">
+      <h2 id="questionHeading" class="section-title">Ask a question</h2>
+      
+      <form id="questionForm" class="question-form">
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="questionInput" 
+            class="text-input" 
+            placeholder="Ask a question about the document..." 
+            autocomplete="off" 
+            disabled
+          >
+          <button type="submit" id="askBtn" class="btn btn-primary" disabled>
+            <span id="askBtnText">Ask</span>
+            <div id="askSpinner" class="spinner-sm hidden"></div>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Answer Section -->
+    <section id="answerSection" class="panel-section answer-section hidden" aria-labelledby="answerHeading">
+      <h2 id="answerHeading" class="section-title">Answer</h2>
+      <div id="answerContent" class="answer-box"></div>
+
+      <div id="sourcesContainer" class="sources-container hidden">
+        <h3 class="sources-title">Sources</h3>
+        <div id="sourcesList" class="sources-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
